@@ -264,7 +264,8 @@ public class DBFReader extends DBFBase {
 
 							if( t_numeric.length > 0 && !Utils.contains( t_numeric, (byte)'?')) {
 
-								recordObjects[i] = new Double( new String( t_numeric));
+								String s = new String( t_numeric);
+								recordObjects[i] = new Double( zeroIfEmpty(s));
 							}
 							else {
 
@@ -311,5 +312,14 @@ public class DBFReader extends DBFBase {
 		}
 
 		return recordObjects;
+	}
+
+
+	private double zeroIfEmpty(String s) {
+		boolean empty = s == null || s.trim().equals("");
+		if (empty) {
+			return 0.;
+		}
+		return new Double(s);
 	}
 }
